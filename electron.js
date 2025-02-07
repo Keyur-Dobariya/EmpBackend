@@ -55,7 +55,7 @@ app.whenReady().then(() => {
       timerSecond++;
     }
 
-    console.log("timerSecond", value, timerSecond, takeScreenshotTime);
+    // console.log("timerSecond", value, timerSecond, takeScreenshotTime);
     
     if (value === true && timerSecond >= takeScreenshotTime) {
       createWindow();
