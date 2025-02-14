@@ -1,0 +1,15 @@
+{
+  "_id": {
+    "_data": "8267AEC68B0000000B2B042C0100296E5A1004FE487B7A99FD4AC0B620CF7C701820C4463C6F7065726174696F6E54797065003C7570646174650046646F63756D656E744B65790046645F6964006467AD84DC793B90487C7EB2D0000004"
+  },
+  "operationType": "update",
+  "clusterTime": { "$timestamp": "7471127132156985355" },
+  "wallTime": "2025-02-14T04:28:59.270Z",
+  "ns": { "db": "empSystem", "coll": "attendances" },
+  "documentKey": { "_id": "67ad84dc793b90487c7eb2d0" },
+  "updateDescription": {
+    "updatedFields": { "workingHours": "4h 43m 50s" },
+    "removedFields": [],
+    "truncatedArrays": []
+  }
+}
