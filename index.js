@@ -12,7 +12,6 @@ const path = require("path");
 const mongoose = require("mongoose");
 const { spawn } = require("child_process");
 const { AttendanceModel, UserModel } = require("./lib/Models/User");
-
 const http = require("http");
 const { Server } = require("socket.io");
 
@@ -61,8 +60,9 @@ const socketConnection = async (PORT) => {
 
   const io = new Server(server, {
     cors: {
-      origin: "http://localhost:5201",
+      origin: "*",
       methods: ["GET", "POST"],
+      credentials: true,
     },
   });
 
@@ -70,25 +70,24 @@ const socketConnection = async (PORT) => {
     const userChangeStream = UserModel.watch();
     userChangeStream.on("change", async (change) => {
       const changedData = JSON.stringify(change);
-      const user = await UserModel.findById(changedData.documentKey._id);
-      if (user) {
-        socket.emit("employeeData", JSON.stringify(change));
-      }
-      console.log("User:", changedData);
+      // const user = await UserModel.findById(changedData.documentKey._id);
+      // if (user) {
+      //   socket.emit("employeeData", JSON.stringify(change));
+      // }
+      // console.log("User:", changedData);
     });
 
     const attendanceChangeStream = AttendanceModel.watch();
     attendanceChangeStream.on("change", async (change) => {
       const changedData = JSON.stringify(change);
-      const attendance = await AttendanceModel.findById(changedData.documentKey._id);
-      if (attendance) {
-        socket.emit("attendanceData", JSON.stringify(change));
-      }
-      console.log("Attendance:", changedData);
+      // const attendance = await AttendanceModel.findById(changedData.documentKey._id);
+      // if (attendance) {
+      //   socket.emit("attendanceData", JSON.stringify(change));
+      // }
+      // console.log("Attendance:", changedData);
     });
 
     socket.on("socketMessage", (data) => {
-      console.log(`User with ID: ${socket.id} joined room: ${data}`);
       socket.emit("receive_message", data);
     });
   });
