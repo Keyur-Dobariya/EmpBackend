@@ -67,29 +67,13 @@ const socketConnection = async (PORT) => {
   });
 
   io.on("connection", (socket) => {
-    const userChangeStream = UserModel.watch();
-    userChangeStream.on("change", async (change) => {
-      const changedData = JSON.stringify(change);
-      // const user = await UserModel.findById(changedData.documentKey._id);
-      // if (user) {
-      //   socket.emit("employeeData", JSON.stringify(change));
-      // }
-      // console.log("User:", changedData);
-    });
-
-    const attendanceChangeStream = AttendanceModel.watch();
-    attendanceChangeStream.on("change", async (change) => {
-      const changedData = JSON.stringify(change);
-      // const attendance = await AttendanceModel.findById(changedData.documentKey._id);
-      // if (attendance) {
-      //   socket.emit("attendanceData", JSON.stringify(change));
-      // }
-      // console.log("Attendance:", changedData);
-    });
-
+    console.log("connection done");
+   
     socket.on("socketMessage", (data) => {
-      socket.emit("receive_message", data);
+      // console.log("Attendance:", data);
+      socket.broadcast.emit("receive_message", data);
     });
+
   });
 
   server.listen(PORT, () => {
