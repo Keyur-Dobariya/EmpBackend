@@ -8,6 +8,7 @@ const AuthRouter = require("./lib/Routes/AuthRouter");
 const RequestRouter = require("./lib/Routes/RequestRouter");
 const UserDataRouter = require("./lib/Routes/UserDataRouter");
 const NotesRouter = require("./lib/Routes/NotesRouter");
+const fs = require("fs");
 const path = require("path");
 const mongoose = require("mongoose");
 const { spawn } = require("child_process");
@@ -30,6 +31,15 @@ async function connectToDatabase() {
 
 async function startServer() {
   await connectToDatabase();
+
+  const profilePhotoDir = path.join(__dirname, "uploads/profilePhoto");
+  const screenshotDir = path.join(__dirname, "uploads/screenshots");
+  if (!fs.existsSync(profilePhotoDir)) {
+    fs.mkdirSync(profilePhotoDir);
+  }
+  if (!fs.existsSync(screenshotDir)) {
+    fs.mkdirSync(screenshotDir);
+  }
 
   const PORT = process.env.PORT || 8080;
 
@@ -67,18 +77,17 @@ const socketConnection = async (PORT) => {
   });
 
   io.on("connection", (socket) => {
-    console.log("connection done");
-   
+    // console.log("connection done");
+
     socket.on("socketMessage", (data) => {
       // console.log("Attendance:", data);
       socket.broadcast.emit("receive_message", data);
     });
-
   });
 
   server.listen(PORT, () => {
     console.log(`Server is running on ${PORT}`);
-    startElectronApp();
+    // startElectronApp();
   });
 };
 
