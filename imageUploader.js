@@ -10,9 +10,6 @@ const storage = multer.diskStorage({
       uploadPath = 'uploads/profilePhoto';
     }
 
-    console.log("uploadPath", uploadPath);
-    
-
     if (!fs.existsSync(path.join(__dirname, uploadPath))) {
       fs.mkdirSync(path.join(__dirname, uploadPath), { recursive: true });
     }
