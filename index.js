@@ -56,6 +56,7 @@ async function startServer() {
   expressApp.use("/api", RequestRouter);
   expressApp.use("/api/notes", NotesRouter);
   expressApp.use(express.static(path.join(__dirname, "lib", "frontend")));
+  expressApp.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
   socketConnection(PORT);
 
